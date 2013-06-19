@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F502F7054E947EB869B7754 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A98899636D374D11953FAC89 /* libPods.a */; };
 		B3320C1417713F340094CA47 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1317713F340094CA47 /* UIKit.framework */; };
 		B3320C1617713F340094CA47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1517713F340094CA47 /* Foundation.framework */; };
 		B3320C1817713F340094CA47 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1717713F340094CA47 /* CoreGraphics.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45B63FBE065E4948B4EE99F3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		A98899636D374D11953FAC89 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3320C1017713F340094CA47 /* AppDojo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppDojo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3320C1317713F340094CA47 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B3320C1517713F340094CA47 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -50,6 +53,7 @@
 				B3320C1417713F340094CA47 /* UIKit.framework in Frameworks */,
 				B3320C1617713F340094CA47 /* Foundation.framework in Frameworks */,
 				B3320C1817713F340094CA47 /* CoreGraphics.framework in Frameworks */,
+				4F502F7054E947EB869B7754 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +66,7 @@
 				B3320C1917713F340094CA47 /* AppDojo-iOS */,
 				B3320C1217713F340094CA47 /* Frameworks */,
 				B3320C1117713F340094CA47 /* Products */,
+				45B63FBE065E4948B4EE99F3 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +84,7 @@
 				B3320C1317713F340094CA47 /* UIKit.framework */,
 				B3320C1517713F340094CA47 /* Foundation.framework */,
 				B3320C1717713F340094CA47 /* CoreGraphics.framework */,
+				A98899636D374D11953FAC89 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,9 +125,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3320C3617713F340094CA47 /* Build configuration list for PBXNativeTarget "AppDojo-iOS" */;
 			buildPhases = (
+				1D2F276987D94033819C82D8 /* Check Pods Manifest.lock */,
 				B3320C0C17713F340094CA47 /* Sources */,
 				B3320C0D17713F340094CA47 /* Frameworks */,
 				B3320C0E17713F340094CA47 /* Resources */,
+				9C26EC944BE54663B8189504 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -172,6 +180,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D2F276987D94033819C82D8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
+		9C26EC944BE54663B8189504 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B3320C0C17713F340094CA47 /* Sources */ = {
@@ -265,6 +304,7 @@
 		};
 		B3320C3717713F340094CA47 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45B63FBE065E4948B4EE99F3 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppDojo-iOS/AppDojo-iOS-Prefix.pch";
@@ -276,6 +316,7 @@
 		};
 		B3320C3817713F340094CA47 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45B63FBE065E4948B4EE99F3 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppDojo-iOS/AppDojo-iOS-Prefix.pch";
@@ -304,6 +345,7 @@
 				B3320C3817713F340094CA47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

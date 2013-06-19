@@ -66,6 +66,7 @@
 
     NSDate *object = _objects[indexPath.row];
     cell.textLabel.text = [object description];
+    cell.detailTextLabel.text = @"Hello world!";
     return cell;
 }
 

@@ -40,19 +40,44 @@
 
 - (void)insertNewObject:(id)sender
 {
-    NSURL *url = [NSURL URLWithString:@"https://appdojo-api.herokuapp.com/users"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURL *url = [NSURL URLWithString:@"https://appdojo-api.herokuapp.com/"];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        for(id key in [JSON allKeys]) {
-            NSLog(@"Key %@ Value %@", key, [JSON valueForKey:key]);
-        }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error: %@ %@", error, [error userInfo]);
-        NSLog(@"YOU SUCK");
-    }];
+//    NSDictionary *user = [NSDictionary dictionaryWithObjectsAndKeys:@"test@cloud.com",@"email", @"leo", @"first_name", @"correa", @"last_name", @"awesome_password", @"password", @"awesome_password", @"password_confirmation", nil];
+//    NSDictionary *user_params = [NSDictionary dictionaryWithObjectsAndKeys:user, @"user", nil];
     
-    [operation start];
+    NSDictionary *params = @{@"user":@{@"email":@"test@cloud.com", @"first_name": @"leo", @"last_name": @"correa", @"password": @"awesome_password", @"password_confirmation": @"awesome_password"}};
+    
+//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseUrl:url];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    
+    [httpClient setParameterEncoding:AFJSONParameterEncoding];
+    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    
+    [httpClient postPath:@"/users" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        for(id key in [responseObject allKeys]) {
+//            NSLog(@"Key %@ Value %@", key, [responseObject valueForKey:key]);
+//        }
+//        
+        NSLog(@"Response: %@", responseObject);
+    
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }]; 
+    
+    
+    
+    
+//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//        for(id key in [JSON allKeys]) {
+//            NSLog(@"Key %@ Value %@", key, [JSON valueForKey:key]);
+//        }
+//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//        NSLog(@"Error: %@ %@", error, [error userInfo]);
+//        NSLog(@"YOU SUCK");
+//    }];
+//    
+//    [operation start];
     
 //    if (!_objects) {
 //        _objects = [[NSMutableArray alloc] init];

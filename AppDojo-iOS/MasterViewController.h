@@ -10,6 +10,5 @@
 #import <AFNetworking.h>
 
 @interface MasterViewController : UITableViewController
-
-
+-(void)userList;
 @end

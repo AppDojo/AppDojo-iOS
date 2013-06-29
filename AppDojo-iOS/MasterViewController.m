@@ -30,6 +30,8 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    [self userList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,50 +43,57 @@
 - (void)insertNewObject:(id)sender
 {
     NSURL *url = [NSURL URLWithString:@"https://appdojo-api.herokuapp.com/"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+     
+    NSDictionary *params = @{@"user":@{@"email":@"leo@cloud.com", @"first_name": @"leo", @"last_name": @"correa", @"password": @"awesome_password", @"password_confirmation": @"awesome_password"}};
     
-//    NSDictionary *user = [NSDictionary dictionaryWithObjectsAndKeys:@"test@cloud.com",@"email", @"leo", @"first_name", @"correa", @"last_name", @"awesome_password", @"password", @"awesome_password", @"password_confirmation", nil];
-//    NSDictionary *user_params = [NSDictionary dictionaryWithObjectsAndKeys:user, @"user", nil];
-    
-    NSDictionary *params = @{@"user":@{@"email":@"test@cloud.com", @"first_name": @"leo", @"last_name": @"correa", @"password": @"awesome_password", @"password_confirmation": @"awesome_password"}};
-    
-//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseUrl:url];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    [httpClient setDefaultHeader:@"Accept" value:@"application/json"];
     
     [httpClient postPath:@"/users" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        for(id key in [responseObject allKeys]) {
-//            NSLog(@"Key %@ Value %@", key, [responseObject valueForKey:key]);
-//        }
-//        
-        NSLog(@"Response: %@", responseObject);
+        if (!_objects) {
+            _objects = [[NSMutableArray alloc] init];
+        }
+        
+        NSDictionary *user = [NSDictionary dictionaryWithDictionary:[responseObject valueForKey:@"user"]];
+        [_objects insertObject:[user valueForKey:@"first_name"] atIndex:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if([operation isKindOfClass:[AFJSONRequestOperation class]]) {
+            id JSON = [(AFJSONRequestOperation *) operation responseJSON];
+            NSLog(@"JSON: %@", JSON);
+        }
         
     }]; 
+}
+
+-(void)userList
+{
+    NSURL *url = [NSURL URLWithString:@"https://appdojo-api.herokuapp.com/users"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (!_objects) {
+            _objects = [[NSMutableArray alloc] init];
+        }
+        
+        NSArray *users = [JSON valueForKey:@"users"];
+        
+        for(id user in users) {
+            [_objects insertObject:user atIndex:0];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Error: %@ %@", error, [error userInfo]);
+        NSLog(@"YOU SUCK");
+    }];
     
-    
-    
-//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//        for(id key in [JSON allKeys]) {
-//            NSLog(@"Key %@ Value %@", key, [JSON valueForKey:key]);
-//        }
-//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//        NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        NSLog(@"YOU SUCK");
-//    }];
-//    
-//    [operation start];
-    
-//    if (!_objects) {
-//        _objects = [[NSMutableArray alloc] init];
-//    }
-//    [_objects insertObject:[NSDate date] atIndex:0];
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [operation start];
 }
 
 #pragma mark - Table View
@@ -102,10 +111,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    NSDictionary *object = _objects[indexPath.row];
+    
+    NSString *email = [object valueForKey:@"email"];
 
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
-    cell.detailTextLabel.text = @"Hello world!";
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [object valueForKey:@"first_name"], [object valueForKey:@"last_name"]];
+    cell.detailTextLabel.text = email;
     return cell;
 }
 

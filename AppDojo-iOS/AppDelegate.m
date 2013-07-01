@@ -7,12 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import "API.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [NSRConfig defaultConfig].appURL = @"http://localhost:3000";
+        
     return YES;
 }
 							

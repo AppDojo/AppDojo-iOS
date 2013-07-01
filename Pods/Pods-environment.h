@@ -19,6 +19,12 @@
 // Please contact the author.
 // Version: 1.5pre.
 
+// NSRails
+#define COCOAPODS_POD_AVAILABLE_NSRails
+#define COCOAPODS_VERSION_MAJOR_NSRails 2
+#define COCOAPODS_VERSION_MINOR_NSRails 0
+#define COCOAPODS_VERSION_PATCH_NSRails 3
+
 // Reachability
 #define COCOAPODS_POD_AVAILABLE_Reachability
 #define COCOAPODS_VERSION_MAJOR_Reachability 3

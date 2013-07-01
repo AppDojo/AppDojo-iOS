@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AFNetworking.h>
+#import "User.h"
 
 @interface MasterViewController : UITableViewController
 -(void)userList;

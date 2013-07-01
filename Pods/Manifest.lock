@@ -1,16 +1,19 @@
 PODS:
   - AFNetworking (1.3.1)
   - JSONKit (1.5pre)
+  - NSRails (2.0.3)
   - Reachability (3.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.2)
   - JSONKit (~> 1.4)
+  - NSRails
   - Reachability (~> 3.0.0)
 
 SPEC CHECKSUMS:
-  AFNetworking: 8f204b1ffb21a4ef0f36c83f1e4f052561626bea
+  AFNetworking: 9ec8aafb9269236a7630bd8d9838ce2ba30fa2a0
   JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
+  NSRails: e8cf8a44ec777a63002ecae69f0ac0f9ececc6c4
   Reachability: 500bd76bf6cd8ff2c6fb715fc5f44ef6e4c024f2
 
 COCOAPODS: 0.20.2

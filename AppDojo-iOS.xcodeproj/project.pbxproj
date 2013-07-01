@@ -20,6 +20,10 @@
 		B3320C2D17713F340094CA47 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3320C2B17713F340094CA47 /* MainStoryboard.storyboard */; };
 		B3320C3017713F340094CA47 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3320C2F17713F340094CA47 /* MasterViewController.m */; };
 		B3320C3317713F340094CA47 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3320C3217713F340094CA47 /* DetailViewController.m */; };
+		B395409A1780BCF10071D287 /* dojo_big.png in Resources */ = {isa = PBXBuildFile; fileRef = B39540991780BCF10071D287 /* dojo_big.png */; };
+		B395409E1780C6820071D287 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B395409D1780C29E0071D287 /* User.m */; };
+		B39540A11780D5060071D287 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = B39540A01780D5060071D287 /* API.m */; };
+		B3B6BA911780F205004E9DE0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B6BA901780F205004E9DE0 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +47,13 @@
 		B3320C2F17713F340094CA47 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		B3320C3117713F340094CA47 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		B3320C3217713F340094CA47 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		B39540991780BCF10071D287 /* dojo_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dojo_big.png; sourceTree = "<group>"; };
+		B395409C1780C29E0071D287 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		B395409D1780C29E0071D287 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		B395409F1780D5060071D287 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
+		B39540A01780D5060071D287 /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
+		B3B6BA8F1780F205004E9DE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B3B6BA901780F205004E9DE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +103,8 @@
 		B3320C1917713F340094CA47 /* AppDojo-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B395409B1780C2880071D287 /* Models */,
+				B39540961780BB100071D287 /* Resources */,
 				B3320C2217713F340094CA47 /* AppDelegate.h */,
 				B3320C2317713F340094CA47 /* AppDelegate.m */,
 				B3320C2B17713F340094CA47 /* MainStoryboard.storyboard */,
@@ -99,6 +112,8 @@
 				B3320C2F17713F340094CA47 /* MasterViewController.m */,
 				B3320C3117713F340094CA47 /* DetailViewController.h */,
 				B3320C3217713F340094CA47 /* DetailViewController.m */,
+				B3B6BA8F1780F205004E9DE0 /* LoginViewController.h */,
+				B3B6BA901780F205004E9DE0 /* LoginViewController.m */,
 				B3320C1A17713F340094CA47 /* Supporting Files */,
 			);
 			path = "AppDojo-iOS";
@@ -116,6 +131,25 @@
 				B3320C2917713F340094CA47 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B39540961780BB100071D287 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B39540991780BCF10071D287 /* dojo_big.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B395409B1780C2880071D287 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B395409C1780C29E0071D287 /* User.h */,
+				B395409D1780C29E0071D287 /* User.m */,
+				B395409F1780D5060071D287 /* API.h */,
+				B39540A01780D5060071D287 /* API.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +210,7 @@
 				B3320C2817713F340094CA47 /* Default@2x.png in Resources */,
 				B3320C2A17713F340094CA47 /* Default-568h@2x.png in Resources */,
 				B3320C2D17713F340094CA47 /* MainStoryboard.storyboard in Resources */,
+				B395409A1780BCF10071D287 /* dojo_big.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,8 +252,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B39540A11780D5060071D287 /* API.m in Sources */,
+				B395409E1780C6820071D287 /* User.m in Sources */,
 				B3320C2017713F340094CA47 /* main.m in Sources */,
 				B3320C2417713F340094CA47 /* AppDelegate.m in Sources */,
+				B3B6BA911780F205004E9DE0 /* LoginViewController.m in Sources */,
 				B3320C3017713F340094CA47 /* MasterViewController.m in Sources */,
 				B3320C3317713F340094CA47 /* DetailViewController.m in Sources */,
 			);

@@ -7,8 +7,10 @@
 //
 
 #import "MasterViewController.h"
-
 #import "DetailViewController.h"
+
+#import "API.h"
+
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -22,9 +24,31 @@
     [super awakeFromNib];
 }
 
+//-(void) viewDidAppear:(BOOL)animated
+//{
+//    if(![[API sharedInstance] isAuthorized]) {
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//        UIViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//        
+//        [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
+//    }
+//    
+//    [super viewDidAppear:animated];
+//
+//}
+
+
 - (void)viewDidLoad
 {
+    if(![[API sharedInstance] isAuthorized]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        
+        [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
+    }
+    
     [super viewDidLoad];
+
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
@@ -32,6 +56,8 @@
     self.navigationItem.rightBarButtonItem = addButton;
     
     [self userList];
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,27 +99,40 @@
 
 -(void)userList
 {
-    NSURL *url = [NSURL URLWithString:@"https://appdojo-api.herokuapp.com/users"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        if (!_objects) {
-            _objects = [[NSMutableArray alloc] init];
-        }
+    if (!_objects) {
+        _objects = [[NSMutableArray alloc] init];
+    }
+  
+    NSArray *users = [User remoteAll:NULL];
         
-        NSArray *users = [JSON valueForKey:@"users"];
-        
-        for(id user in users) {
-            [_objects insertObject:user atIndex:0];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error: %@ %@", error, [error userInfo]);
-        NSLog(@"YOU SUCK");
-    }];
+    for(id user in users) {
+        [_objects insertObject:user atIndex:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     
-    [operation start];
+    
+//    NSURL *url = [NSURL URLWithString:@"https://appdojo-api.herokuapp.com/users"];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    
+//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//        if (!_objects) {
+//            _objects = [[NSMutableArray alloc] init];
+//        }
+//        
+//        NSArray *users = [JSON valueForKey:@"users"];
+//        
+//        for(id user in users) {
+//            [_objects insertObject:user atIndex:0];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//        }
+//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//        NSLog(@"Error: %@ %@", error, [error userInfo]);
+//        NSLog(@"YOU SUCK");
+//    }];
+//    
+//    [operation start];
 }
 
 #pragma mark - Table View
@@ -112,12 +151,10 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    NSDictionary *object = _objects[indexPath.row];
+    User *user = _objects[indexPath.row];
     
-    NSString *email = [object valueForKey:@"email"];
-
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [object valueForKey:@"first_name"], [object valueForKey:@"last_name"]];
-    cell.detailTextLabel.text = email;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [user firstName], [user lastName]];
+    cell.detailTextLabel.text = [user email];
     return cell;
 }
 
@@ -157,7 +194,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
+        NSDictionary *object = _objects[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
 }

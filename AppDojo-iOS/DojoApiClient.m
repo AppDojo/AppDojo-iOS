@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Leonardo Correa. All rights reserved.
 //
 
-#import "API.h"
+#import "DojoApi.h"
 
 #define kAPIHost @"http://localhost:3000"
 #define kAPIPath @"/"
 
-@implementation API
+@implementation DojoApiClient
 
 @synthesize user;
 
--(API *)init {
+-(DojoApiClient *)init {
     self = [super init];
     
     if (self != nil) {
@@ -51,8 +51,8 @@
 /**
  * Singleton Methods
  */
-+(API *)sharedInstance {
-    static API *sharedInstance = nil;
++(DojoApiClient *)sharedInstance {
+    static DojoApiClient *sharedInstance = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
         sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:kAPIHost]];

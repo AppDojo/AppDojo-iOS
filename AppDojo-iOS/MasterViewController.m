@@ -9,7 +9,7 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
-#import "API.h"
+#import "DojoApiClient.h"
 
 
 @interface MasterViewController () {
@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad
 {
-    if(![[API sharedInstance] isAuthorized]) {
+    if(![[DojoApiClient sharedInstance] isAuthorized]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         UIViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         

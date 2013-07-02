@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "API.h"
+#import "DojoApiClient.h"
 #import "LoginViewController.h"
 
 @implementation AppDelegate

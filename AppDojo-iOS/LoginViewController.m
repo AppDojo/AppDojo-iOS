@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 
-#import "API.h"
+#import "DojoApiClient.h"
 
 @interface LoginViewController ()
 
@@ -51,10 +51,10 @@
     // TODO more stuff...
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"email": emailTextField.text, @"password":passwordTextField.text}];
     
-    [[API sharedInstance] commandWithParams:params path:@"/login" onCompletion:^(NSDictionary *json) {
+    [[DojoApiClient sharedInstance] commandWithParams:params path:@"/login" onCompletion:^(NSDictionary *json) {
         if ([json objectForKey:@"error"] == nil && [json objectForKey:@"user"] != nil) {
             NSDictionary *user = [NSDictionary dictionaryWithDictionary:[json objectForKey:@"user"]];
-            [[API sharedInstance] setUser:user];
+            [[DojoApiClient sharedInstance] setUser:user];
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             
             [[[UIAlertView alloc] initWithTitle:@"Logged In" message:[NSString stringWithFormat:@"Welcome %@", [user objectForKey:@"first_name"]] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];

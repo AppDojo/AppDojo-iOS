@@ -12,11 +12,11 @@
 
 typedef void(^JSONResponseBlock)(NSDictionary *json);
 
-@interface API : AFHTTPClient
+@interface DojoApiClient : AFHTTPClient
 
 @property (nonatomic, strong) NSDictionary *user;
 
 -(BOOL)isAuthorized;
 -(void)commandWithParams:(NSMutableDictionary *)params path:(NSString *)path onCompletion:(JSONResponseBlock)completionBlock;
-+(API *)sharedInstance;
++(DojoApiClient *)sharedInstance;
 @end

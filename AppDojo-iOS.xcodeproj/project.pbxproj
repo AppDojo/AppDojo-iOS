@@ -22,7 +22,7 @@
 		B3320C3317713F340094CA47 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3320C3217713F340094CA47 /* DetailViewController.m */; };
 		B395409A1780BCF10071D287 /* dojo_big.png in Resources */ = {isa = PBXBuildFile; fileRef = B39540991780BCF10071D287 /* dojo_big.png */; };
 		B395409E1780C6820071D287 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B395409D1780C29E0071D287 /* User.m */; };
-		B39540A11780D5060071D287 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = B39540A01780D5060071D287 /* API.m */; };
+		B39540A11780D5060071D287 /* DojoApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B39540A01780D5060071D287 /* DojoApiClient.m */; };
 		B3B6BA911780F205004E9DE0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B6BA901780F205004E9DE0 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -50,8 +50,8 @@
 		B39540991780BCF10071D287 /* dojo_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dojo_big.png; sourceTree = "<group>"; };
 		B395409C1780C29E0071D287 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		B395409D1780C29E0071D287 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		B395409F1780D5060071D287 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
-		B39540A01780D5060071D287 /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
+		B395409F1780D5060071D287 /* DojoApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DojoApiClient.h; sourceTree = "<group>"; };
+		B39540A01780D5060071D287 /* DojoApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DojoApiClient.m; sourceTree = "<group>"; };
 		B3B6BA8F1780F205004E9DE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		B3B6BA901780F205004E9DE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,8 +146,8 @@
 			children = (
 				B395409C1780C29E0071D287 /* User.h */,
 				B395409D1780C29E0071D287 /* User.m */,
-				B395409F1780D5060071D287 /* API.h */,
-				B39540A01780D5060071D287 /* API.m */,
+				B395409F1780D5060071D287 /* DojoApiClient.h */,
+				B39540A01780D5060071D287 /* DojoApiClient.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -252,7 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B39540A11780D5060071D287 /* API.m in Sources */,
+				B39540A11780D5060071D287 /* DojoApiClient.m in Sources */,
 				B395409E1780C6820071D287 /* User.m in Sources */,
 				B3320C2017713F340094CA47 /* main.m in Sources */,
 				B3320C2417713F340094CA47 /* AppDelegate.m in Sources */,

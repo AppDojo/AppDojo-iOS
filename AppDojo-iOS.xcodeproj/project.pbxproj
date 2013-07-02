@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4F502F7054E947EB869B7754 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A98899636D374D11953FAC89 /* libPods.a */; };
+		B32480891783561C000B3161 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32480881783561C000B3161 /* SystemConfiguration.framework */; };
+		B324808B178357CE000B3161 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B324808A178357CE000B3161 /* MobileCoreServices.framework */; };
 		B3320C1417713F340094CA47 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1317713F340094CA47 /* UIKit.framework */; };
 		B3320C1617713F340094CA47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1517713F340094CA47 /* Foundation.framework */; };
 		B3320C1817713F340094CA47 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1717713F340094CA47 /* CoreGraphics.framework */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		45B63FBE065E4948B4EE99F3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		A98899636D374D11953FAC89 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B32480881783561C000B3161 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B324808A178357CE000B3161 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		B3320C1017713F340094CA47 /* AppDojo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppDojo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3320C1317713F340094CA47 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B3320C1517713F340094CA47 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -61,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B324808B178357CE000B3161 /* MobileCoreServices.framework in Frameworks */,
+				B32480891783561C000B3161 /* SystemConfiguration.framework in Frameworks */,
 				B3320C1417713F340094CA47 /* UIKit.framework in Frameworks */,
 				B3320C1617713F340094CA47 /* Foundation.framework in Frameworks */,
 				B3320C1817713F340094CA47 /* CoreGraphics.framework in Frameworks */,
@@ -92,6 +98,8 @@
 		B3320C1217713F340094CA47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B324808A178357CE000B3161 /* MobileCoreServices.framework */,
+				B32480881783561C000B3161 /* SystemConfiguration.framework */,
 				B3320C1317713F340094CA47 /* UIKit.framework */,
 				B3320C1517713F340094CA47 /* Foundation.framework */,
 				B3320C1717713F340094CA47 /* CoreGraphics.framework */,
@@ -344,10 +352,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45B63FBE065E4948B4EE99F3 /* Pods.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppDojo-iOS/AppDojo-iOS-Prefix.pch";
 				INFOPLIST_FILE = "AppDojo-iOS/AppDojo-iOS-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -356,10 +368,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45B63FBE065E4948B4EE99F3 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppDojo-iOS/AppDojo-iOS-Prefix.pch";
 				INFOPLIST_FILE = "AppDojo-iOS/AppDojo-iOS-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

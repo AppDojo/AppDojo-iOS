@@ -1,1 +1,0 @@
-../../NSRails/nsrails/Source/Categories/NSString+NSRInflection.h

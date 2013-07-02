@@ -1,1 +1,0 @@
-../../NSRails/nsrails/Source/NSRRemoteManagedObject.h

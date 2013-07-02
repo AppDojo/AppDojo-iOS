@@ -40,6 +40,7 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     if(![[DojoApiClient sharedInstance] isAuthorized]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         UIViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
@@ -47,7 +48,7 @@
         [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
     }
     
-    [super viewDidLoad];
+
 
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;

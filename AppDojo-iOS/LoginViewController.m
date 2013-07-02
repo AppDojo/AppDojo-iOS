@@ -34,6 +34,7 @@
 	
     [emailTextField becomeFirstResponder];
     
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,14 +52,17 @@
     // TODO more stuff...
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"email": emailTextField.text, @"password":passwordTextField.text}];
     
-    [[DojoApiClient sharedInstance] commandWithParams:params path:@"/login" onCompletion:^(NSDictionary *json) {
-        if ([json objectForKey:@"error"] == nil && [json objectForKey:@"user"] != nil) {
+    [[DojoApiClient sharedInstance] commandWithParams:params path:@"/api/v1/users/sign_in" onCompletion:^(NSDictionary *json) {
+        if ([json objectForKey:@"error"] == nil && [json objectForKey:@"auth_token"] != nil) {
             NSDictionary *user = [NSDictionary dictionaryWithDictionary:[json objectForKey:@"user"]];
+            NSString *authToken = [json objectForKey:@"auth_token"];
+            [[DojoApiClient sharedInstance] setAuthToken:authToken];
             [[DojoApiClient sharedInstance] setUser:user];
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             
             [[[UIAlertView alloc] initWithTitle:@"Logged In" message:[NSString stringWithFormat:@"Welcome %@", [user objectForKey:@"first_name"]] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
         } else {
+            NSLog(@"%@", json);
             NSLog(@"%@", [json objectForKey:@"error"]);
         }
     }];

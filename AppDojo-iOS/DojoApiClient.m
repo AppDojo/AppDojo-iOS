@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Leonardo Correa. All rights reserved.
 //
 
-#import "DojoApi.h"
+#import "DojoApiClient.h"
 
 #define kAPIHost @"http://localhost:3000"
 #define kAPIPath @"/"
@@ -14,6 +14,7 @@
 @implementation DojoApiClient
 
 @synthesize user;
+@synthesize authToken;
 
 -(DojoApiClient *)init {
     self = [super init];
@@ -30,7 +31,8 @@
 }
 
 -(BOOL)isAuthorized {
-    return [[user objectForKey:@"id"] intValue] > 0;
+    BOOL auth = [[user objectForKey:@"id"] intValue] > 0 && authToken != nil;
+    return auth;
 }
 
 -(void)commandWithParams:(NSMutableDictionary *)params path:(NSString *)path onCompletion:(JSONResponseBlock)completionBlock {

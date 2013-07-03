@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 
 #import "DojoApiClient.h"
+#import "User.h"
 
 
 @interface MasterViewController () {
@@ -23,20 +24,6 @@
 {
     [super awakeFromNib];
 }
-
-//-(void) viewDidAppear:(BOOL)animated
-//{
-//    if(![[API sharedInstance] isAuthorized]) {
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-//        UIViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//        
-//        [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
-//    }
-//    
-//    [super viewDidAppear:animated];
-//
-//}
-
 
 - (void)viewDidLoad
 {
@@ -100,40 +87,32 @@
 
 -(void)userList
 {
+//    if (![[DojoApiClient sharedInstance] isAuthorized]) {
+//        return;
+//    }
+    
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
-  
-    NSArray *users = [User remoteAll:NULL];
+    
+
+    NSString *authToken = @"XQYGtveHRp6ShuWqXMKC"; //[[[DojoApiClient sharedInstance] user] authToken];
+    
+    [[DojoApiClient sharedInstance] getPath:@"api/v1/users" parameters:@{@"auth_token":authToken} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Response: %@", responseObject);
+        NSArray *users = [responseObject objectForKey:@"users"];
+        NSLog(@"Users: %@", users);
+        for(id userRow in users) {
+            
+            User *user = [[User alloc] initWithDictionary:(NSDictionary *)userRow];
+            [_objects insertObject:user atIndex:0];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
         
-    for(id user in users) {
-        [_objects insertObject:user atIndex:0];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    
-    
-//    NSURL *url = [NSURL URLWithString:@"https://appdojo-api.herokuapp.com/users"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    
-//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//        if (!_objects) {
-//            _objects = [[NSMutableArray alloc] init];
-//        }
-//        
-//        NSArray *users = [JSON valueForKey:@"users"];
-//        
-//        for(id user in users) {
-//            [_objects insertObject:user atIndex:0];
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//        }
-//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//        NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        NSLog(@"YOU SUCK");
-//    }];
-//    
-//    [operation start];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 #pragma mark - Table View

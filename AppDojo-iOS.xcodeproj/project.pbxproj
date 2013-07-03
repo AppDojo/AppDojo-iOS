@@ -10,6 +10,7 @@
 		4F502F7054E947EB869B7754 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A98899636D374D11953FAC89 /* libPods.a */; };
 		B32480891783561C000B3161 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32480881783561C000B3161 /* SystemConfiguration.framework */; };
 		B324808B178357CE000B3161 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B324808A178357CE000B3161 /* MobileCoreServices.framework */; };
+		B324808E1783B062000B3161 /* CurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B324808D1783ABE6000B3161 /* CurrentUser.m */; };
 		B3320C1417713F340094CA47 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1317713F340094CA47 /* UIKit.framework */; };
 		B3320C1617713F340094CA47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1517713F340094CA47 /* Foundation.framework */; };
 		B3320C1817713F340094CA47 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3320C1717713F340094CA47 /* CoreGraphics.framework */; };
@@ -33,6 +34,8 @@
 		A98899636D374D11953FAC89 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32480881783561C000B3161 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B324808A178357CE000B3161 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		B324808C1783ABE6000B3161 /* CurrentUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentUser.h; sourceTree = "<group>"; };
+		B324808D1783ABE6000B3161 /* CurrentUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentUser.m; sourceTree = "<group>"; };
 		B3320C1017713F340094CA47 /* AppDojo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppDojo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3320C1317713F340094CA47 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B3320C1517713F340094CA47 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -156,6 +159,8 @@
 				B395409D1780C29E0071D287 /* User.m */,
 				B395409F1780D5060071D287 /* DojoApiClient.h */,
 				B39540A01780D5060071D287 /* DojoApiClient.m */,
+				B324808C1783ABE6000B3161 /* CurrentUser.h */,
+				B324808D1783ABE6000B3161 /* CurrentUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B324808E1783B062000B3161 /* CurrentUser.m in Sources */,
 				B39540A11780D5060071D287 /* DojoApiClient.m in Sources */,
 				B395409E1780C6820071D287 /* User.m in Sources */,
 				B3320C2017713F340094CA47 /* main.m in Sources */,

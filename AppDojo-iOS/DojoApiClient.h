@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 
 #import "AFNetworking.h"
+#import "CurrentUser.h"
 
 typedef void(^JSONResponseBlock)(NSDictionary *json);
 
 @interface DojoApiClient : AFHTTPClient
 
-@property (nonatomic, strong) NSDictionary *user;
-@property (nonatomic, strong) NSString *authToken;
+@property (nonatomic, strong) CurrentUser *user;
 
 -(BOOL)isAuthorized;
--(void)commandWithParams:(NSMutableDictionary *)params path:(NSString *)path onCompletion:(JSONResponseBlock)completionBlock;
+
 +(DojoApiClient *)sharedInstance;
+
 @end

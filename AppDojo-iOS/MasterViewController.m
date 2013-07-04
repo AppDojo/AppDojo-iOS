@@ -28,14 +28,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if(![[DojoApiClient sharedInstance] isAuthorized]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        UIViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        
-        [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
-    }
-    
-
 
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -87,21 +79,16 @@
 
 -(void)userList
 {
-//    if (![[DojoApiClient sharedInstance] isAuthorized]) {
-//        return;
-//    }
     
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
     
 
-    NSString *authToken = @"XQYGtveHRp6ShuWqXMKC"; //[[[DojoApiClient sharedInstance] user] authToken];
+    NSString *authToken = [[[DojoApiClient sharedInstance] user] authToken];
     
     [[DojoApiClient sharedInstance] getPath:@"api/v1/users" parameters:@{@"auth_token":authToken} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Response: %@", responseObject);
         NSArray *users = [responseObject objectForKey:@"users"];
-        NSLog(@"Users: %@", users);
         for(id userRow in users) {
             
             User *user = [[User alloc] initWithDictionary:(NSDictionary *)userRow];

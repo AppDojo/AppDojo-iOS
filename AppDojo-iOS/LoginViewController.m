@@ -20,6 +20,18 @@
 @synthesize emailTextField;
 @synthesize passwordTextField;
 
+- (IBAction)resignAndLogin:(id)sender {
+    UITextField *tf = (UITextField *)sender;
+    
+    if (tf.tag == 1) {
+        [passwordTextField becomeFirstResponder];
+    } else {
+        [sender resignFirstResponder];
+        
+        [self loginWithEmail:emailTextField.text password:passwordTextField.text];
+    }
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,21 +62,30 @@
         return;
     }
     
+    [self loginWithEmail:emailTextField.text password:passwordTextField.text];
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"email": emailTextField.text, @"password":passwordTextField.text}];
+}
+
+- (void) loginWithEmail:(NSString *)email password:(NSString *)password {
+ 
+    NSDictionary *params = @{@"email": email, @"password":password};
     
     [[DojoApiClient sharedInstance] postPath:@"api/v1/users/sign_in.json" parameters:params success:^(AFHTTPRequestOperation *operation, id response){
         CurrentUser *user = [[CurrentUser alloc] initWithDictionary:response];
         [[DojoApiClient sharedInstance] setUser:user];
         
         NSLog(@"AUTH TOKEN %@", [[[DojoApiClient sharedInstance] user] authToken]);
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        
+        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
         
         
         [[[UIAlertView alloc] initWithTitle:@"Logged In" message:[NSString stringWithFormat:@"Welcome %@", [[[DojoApiClient sharedInstance] user] firstName]] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
         
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // TODO Handle Failures...
-    }];    
+        [[[UIAlertView alloc] initWithTitle:@"Login Failed" message:@"Invalid email/password combination" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
+        [passwordTextField setText:@""];
+    }];
 }
 @end
+
+

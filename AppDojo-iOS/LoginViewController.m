@@ -73,13 +73,12 @@
     [[DojoApiClient sharedInstance] postPath:@"api/v1/users/sign_in.json" parameters:params success:^(AFHTTPRequestOperation *operation, id response){
         CurrentUser *user = [[CurrentUser alloc] initWithDictionary:response];
         [[DojoApiClient sharedInstance] setUser:user];
-        
-        NSLog(@"AUTH TOKEN %@", [[[DojoApiClient sharedInstance] user] authToken]);
-        
-        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
+        [[DojoApiClient sharedInstance] setDefaultHeader:@"X-AUTH-TOKEN" value:[[[DojoApiClient sharedInstance] user] authToken]];
         
         
         [[[UIAlertView alloc] initWithTitle:@"Logged In" message:[NSString stringWithFormat:@"Welcome %@", [[[DojoApiClient sharedInstance] user] firstName]] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
+        
+        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
         
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[[UIAlertView alloc] initWithTitle:@"Login Failed" message:@"Invalid email/password combination" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];

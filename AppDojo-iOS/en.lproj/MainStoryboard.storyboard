@@ -20,7 +20,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-383" y="470"/>
+            <point key="canvasLocation" x="-415" y="470"/>
         </scene>
         <!--Master View Controller - Master-->
         <scene sceneID="18">
@@ -30,6 +30,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleToFill" id="CMO-ls-ERO">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -71,6 +72,9 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Master" id="36"/>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="CMO-ls-ERO" id="Oh6-Ci-qJH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
             </objects>
@@ -164,7 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="902" y="64"/>
+            <point key="canvasLocation" x="480" y="470"/>
         </scene>
     </scenes>
     <resources>

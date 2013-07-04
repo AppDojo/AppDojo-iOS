@@ -35,6 +35,10 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     
+    UIImage *background = [UIImage imageNamed:@"bg.jpg"];
+    
+    [self.backgroundImageView setImage:background];
+    
     [self userList];
     
 
@@ -84,10 +88,7 @@
         _objects = [[NSMutableArray alloc] init];
     }
     
-
-    NSString *authToken = [[[DojoApiClient sharedInstance] user] authToken];
-    
-    [[DojoApiClient sharedInstance] getPath:@"api/v1/users" parameters:@{@"auth_token":authToken} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[DojoApiClient sharedInstance] getPath:@"api/v1/users" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *users = [responseObject objectForKey:@"users"];
         for(id userRow in users) {
             

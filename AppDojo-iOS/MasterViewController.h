@@ -11,5 +11,7 @@
 #import "User.h"
 
 @interface MasterViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+
 -(void)userList;
 @end

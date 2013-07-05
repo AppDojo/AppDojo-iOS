@@ -81,8 +81,10 @@
         [self performSegueWithIdentifier:@"LoginSegue" sender:self];
         
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[[UIAlertView alloc] initWithTitle:@"Login Failed" message:@"Invalid email/password combination" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
+        NSDictionary *JSON = [(AFJSONRequestOperation *) operation responseJSON];
+        [[[UIAlertView alloc] initWithTitle:@"Login Failed" message:[JSON valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
         [passwordTextField setText:@""];
+        
     }];
 }
 @end

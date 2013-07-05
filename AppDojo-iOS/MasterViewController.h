@@ -13,5 +13,6 @@
 @interface MasterViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
--(void)userList;
+- (void)userList;
+- (void)refreshTableView:(UIRefreshControl *)sender;
 @end

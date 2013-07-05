@@ -28,20 +28,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
+    
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIImage *background = [UIImage imageNamed:@"bg.jpg"];
+    // Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem = addButton;
     
-    UIImage *background = [UIImage imageNamed:@"bg.jpg"];
     
     [self.backgroundImageView setImage:background];
+    
+    [self.refreshControl addTarget:self action:@selector(refreshTableView:) forControlEvents:UIControlEventValueChanged];
     
     [self userList];
     
 
+}
+
+- (void)refreshTableView:(UIRefreshControl *)sender {
+    // Do the request
+    [sender endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,7 +89,7 @@
 
 -(void)userList
 {
-    
+
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
@@ -99,7 +105,9 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        NSDictionary *JSON = [(AFJSONRequestOperation *) operation responseJSON];
+        NSLog(@"JSON: %@", JSON);
+
     }];
 }
 

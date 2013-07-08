@@ -23,6 +23,9 @@
 		B3320C2D17713F340094CA47 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3320C2B17713F340094CA47 /* MainStoryboard.storyboard */; };
 		B3320C3017713F340094CA47 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3320C2F17713F340094CA47 /* MasterViewController.m */; };
 		B3320C3317713F340094CA47 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3320C3217713F340094CA47 /* DetailViewController.m */; };
+		B34A6CA5178A463E007E0F7B /* CreateMeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B34A6CA4178A463E007E0F7B /* CreateMeetingViewController.m */; };
+		B391B6431788F18E00BA52EF /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = B391B6421788F18E00BA52EF /* Meeting.m */; };
+		B391B645178A1FE000BA52EF /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = B391B644178A1FE000BA52EF /* button.png */; };
 		B395409A1780BCF10071D287 /* dojo_big.png in Resources */ = {isa = PBXBuildFile; fileRef = B39540991780BCF10071D287 /* dojo_big.png */; };
 		B395409E1780C6820071D287 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B395409D1780C29E0071D287 /* User.m */; };
 		B39540A11780D5060071D287 /* DojoApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B39540A01780D5060071D287 /* DojoApiClient.m */; };
@@ -55,6 +58,11 @@
 		B3320C2F17713F340094CA47 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		B3320C3117713F340094CA47 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		B3320C3217713F340094CA47 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		B34A6CA3178A463E007E0F7B /* CreateMeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMeetingViewController.h; sourceTree = "<group>"; };
+		B34A6CA4178A463E007E0F7B /* CreateMeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMeetingViewController.m; sourceTree = "<group>"; };
+		B391B6411788F18E00BA52EF /* Meeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meeting.h; sourceTree = "<group>"; };
+		B391B6421788F18E00BA52EF /* Meeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meeting.m; sourceTree = "<group>"; };
+		B391B644178A1FE000BA52EF /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		B39540991780BCF10071D287 /* dojo_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dojo_big.png; sourceTree = "<group>"; };
 		B395409C1780C29E0071D287 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		B395409D1780C29E0071D287 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -122,6 +130,8 @@
 				B3320C2B17713F340094CA47 /* MainStoryboard.storyboard */,
 				B3320C2E17713F340094CA47 /* MasterViewController.h */,
 				B3320C2F17713F340094CA47 /* MasterViewController.m */,
+				B34A6CA3178A463E007E0F7B /* CreateMeetingViewController.h */,
+				B34A6CA4178A463E007E0F7B /* CreateMeetingViewController.m */,
 				B3320C3117713F340094CA47 /* DetailViewController.h */,
 				B3320C3217713F340094CA47 /* DetailViewController.m */,
 				B3B6BA8F1780F205004E9DE0 /* LoginViewController.h */,
@@ -148,6 +158,7 @@
 		B39540961780BB100071D287 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B391B644178A1FE000BA52EF /* button.png */,
 				B39540991780BCF10071D287 /* dojo_big.png */,
 				B324808F1785812B000B3161 /* bg.jpg */,
 			);
@@ -163,6 +174,8 @@
 				B39540A01780D5060071D287 /* DojoApiClient.m */,
 				B324808C1783ABE6000B3161 /* CurrentUser.h */,
 				B324808D1783ABE6000B3161 /* CurrentUser.m */,
+				B391B6411788F18E00BA52EF /* Meeting.h */,
+				B391B6421788F18E00BA52EF /* Meeting.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -220,6 +233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B391B645178A1FE000BA52EF /* button.png in Resources */,
 				B3320C1E17713F340094CA47 /* InfoPlist.strings in Resources */,
 				B3320C2617713F340094CA47 /* Default.png in Resources */,
 				B3320C2817713F340094CA47 /* Default@2x.png in Resources */,
@@ -271,9 +285,11 @@
 				B39540A11780D5060071D287 /* DojoApiClient.m in Sources */,
 				B395409E1780C6820071D287 /* User.m in Sources */,
 				B3320C2017713F340094CA47 /* main.m in Sources */,
+				B34A6CA5178A463E007E0F7B /* CreateMeetingViewController.m in Sources */,
 				B3320C2417713F340094CA47 /* AppDelegate.m in Sources */,
 				B3B6BA911780F205004E9DE0 /* LoginViewController.m in Sources */,
 				B3320C3017713F340094CA47 /* MasterViewController.m in Sources */,
+				B391B6431788F18E00BA52EF /* Meeting.m in Sources */,
 				B3320C3317713F340094CA47 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

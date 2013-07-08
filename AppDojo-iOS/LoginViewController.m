@@ -20,6 +20,32 @@
 @synthesize emailTextField;
 @synthesize passwordTextField;
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self animatedTextField:textField up:YES];
+    
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self animatedTextField:textField up:NO];
+}
+
+- (void) animatedTextField:(UITextField *)textField up:(BOOL)up
+{
+    const int movementDistance = 150;
+    const float movementDuration = 0.3f;
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations:@"anim" context:nil];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
+}
+
+
 - (IBAction)resignAndLogin:(id)sender {
     UITextField *tf = (UITextField *)sender;
     
@@ -44,10 +70,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    [emailTextField becomeFirstResponder];
     
-    
+    [emailTextField setDelegate:self];
+    [passwordTextField setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,7 +83,7 @@
 
 - (IBAction)btnLoginTapped:(id)sender {
     if(emailTextField.text.length < 4 || passwordTextField.text.length < 4) {
-        NSLog(@"Invalid stuff");
+        [[[UIAlertView alloc] initWithTitle:@"Invalid credentials" message:@"Email and password required" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
         return;
     }
     

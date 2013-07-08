@@ -13,6 +13,8 @@
 @interface MasterViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
-- (void)userList;
+- (void)showNewMeetingForm:(id)sender;
+- (void)fetchMeetingList;
+//- (void)userList;
 - (void)refreshTableView:(UIRefreshControl *)sender;
 @end

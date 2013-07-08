@@ -8,13 +8,15 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "CreateMeetingViewController.h"
 
 #import "DojoApiClient.h"
 #import "User.h"
+#import "Meeting.h"
 
 
 @interface MasterViewController () {
-    NSMutableArray *_objects;
+    NSMutableArray *_meetings;
 }
 @end
 
@@ -29,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showNewMeetingForm:)];
     UIImage *background = [UIImage imageNamed:@"bg.jpg"];
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -40,9 +42,7 @@
     
     [self.refreshControl addTarget:self action:@selector(refreshTableView:) forControlEvents:UIControlEventValueChanged];
     
-    [self userList];
-    
-
+    [self fetchMeetingList];
 }
 
 - (void)refreshTableView:(UIRefreshControl *)sender {
@@ -56,59 +56,51 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
+# pragma mark - Dojo Api
+
+- (void) fetchMeetingList
 {
-    NSURL *url = [NSURL URLWithString:@"https://appdojo-api.herokuapp.com/"];
-     
-    NSDictionary *params = @{@"user":@{@"email":@"leo@cloud.com", @"first_name": @"leo", @"last_name": @"correa", @"password": @"awesome_password", @"password_confirmation": @"awesome_password"}};
-    
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    
-    [httpClient setParameterEncoding:AFJSONParameterEncoding];
-    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
-    [httpClient setDefaultHeader:@"Accept" value:@"application/json"];
-    
-    [httpClient postPath:@"/users" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (!_objects) {
-            _objects = [[NSMutableArray alloc] init];
+    [[DojoApiClient sharedInstance] getPath:@"api/v1/meetings" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(!_meetings) {
+            _meetings = [[NSMutableArray alloc] init];
         }
         
-        NSDictionary *user = [NSDictionary dictionaryWithDictionary:[responseObject valueForKey:@"user"]];
-        [_objects insertObject:[user valueForKey:@"first_name"] atIndex:0];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if([operation isKindOfClass:[AFJSONRequestOperation class]]) {
-            id JSON = [(AFJSONRequestOperation *) operation responseJSON];
-            NSLog(@"JSON: %@", JSON);
-        }
+        NSArray *meetings = [responseObject objectForKey:@"meetings"];
         
-    }]; 
-}
-
--(void)userList
-{
-
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    
-    [[DojoApiClient sharedInstance] getPath:@"api/v1/users" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *users = [responseObject objectForKey:@"users"];
-        for(id userRow in users) {
-            
-            User *user = [[User alloc] initWithDictionary:(NSDictionary *)userRow];
-            [_objects insertObject:user atIndex:0];
+        NSLog(@"Meetings %@", meetings);
+        
+        for(id meetingRow in meetings) {
+            Meeting *meeting = [[Meeting alloc] initWithDictionary:(NSDictionary *)meetingRow];
+            [_meetings insertObject:meeting atIndex:0];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
             [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-        
+        }        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSDictionary *JSON = [(AFJSONRequestOperation *) operation responseJSON];
-        NSLog(@"JSON: %@", JSON);
-
+        id JSON = [(AFJSONRequestOperation *) operation responseJSON];
+        NSLog(@"JSON = %@", JSON);
     }];
+}
+
+- (void)showNewMeetingForm:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    CreateMeetingViewController *meetingFormViewController = [storyboard instantiateViewControllerWithIdentifier:@"MeetingForm"];
+    [self presentViewController:meetingFormViewController animated:YES completion:nil];
+    
+//    NSDictionary *params = @{@"meeting": @{@"name": @"Awesome Meeting", @"start_time":[NSDate date]}};
+//    
+//    [[DojoApiClient sharedInstance] postPath:@"api/v1/meetings" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        if (!_meetings) {
+//            _meetings = [[NSMutableArray alloc] init];
+//        }
+//        NSDictionary *meeting = [NSDictionary dictionaryWithDictionary:[responseObject valueForKey:@"meeting"]];
+//        [_objects insertObject:[meeting valueForKey:@"name"] atIndex:0];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        id JSON = [(AFJSONRequestOperation *) operation responseJSON];
+//        NSLog(@"JSON: %@", JSON);
+//    }];
 }
 
 #pragma mark - Table View
@@ -120,17 +112,21 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return _meetings.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    User *user = _objects[indexPath.row];
+//    NSString *name = _objects[indexPath.row];
+//    
+//    cell.textLabel.text = name;
+//    cell.detailTextLabel.text = @"Awesome";
+    Meeting *meeting = _meetings[indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [user firstName], [user lastName]];
-    cell.detailTextLabel.text = [user email];
+    cell.textLabel.text = [meeting name];
+    cell.detailTextLabel.text = [[meeting startDate] description];
     return cell;
 }
 
@@ -143,7 +139,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
+        [_meetings removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
@@ -170,8 +166,8 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDictionary *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
+        Meeting *meeting = _meetings[indexPath.row];
+        [[segue destinationViewController] setDetailItem:meeting];
     }
 }
 

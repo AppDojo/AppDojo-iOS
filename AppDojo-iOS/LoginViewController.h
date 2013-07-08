@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 - (IBAction)btnLoginTapped:(id)sender;
 - (void) loginWithEmail:(NSString *)email password:(NSString *)password;
+- (void) animatedTextField:(UITextField *) textField up:(BOOL) up;
 
 @end

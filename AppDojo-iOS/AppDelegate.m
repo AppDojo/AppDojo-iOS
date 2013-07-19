@@ -15,7 +15,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [NSRConfig defaultConfig].appURL = @"http://localhost:3000/api/v1/";
         
     return YES;
 }

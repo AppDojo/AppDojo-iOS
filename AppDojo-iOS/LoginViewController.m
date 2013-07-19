@@ -73,6 +73,18 @@
     
     [emailTextField setDelegate:self];
     [passwordTextField setDelegate:self];
+    
+    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+    tapped.numberOfTapsRequired = 1;
+    tapped.numberOfTouchesRequired = 1;
+    
+    [self.view addGestureRecognizer:tapped];
+}
+
+- (void)tapped:(UITapGestureRecognizer *)sender
+{
+    [self.emailTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,10 +113,9 @@
         [[DojoApiClient sharedInstance] setDefaultHeader:@"X-AUTH-TOKEN" value:[[[DojoApiClient sharedInstance] user] authToken]];
         
         
-        [[[UIAlertView alloc] initWithTitle:@"Logged In" message:[NSString stringWithFormat:@"Welcome %@", [[[DojoApiClient sharedInstance] user] firstName]] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
+//        [[[UIAlertView alloc] initWithTitle:@"Logged In" message:[NSString stringWithFormat:@"Welcome %@", [[[DojoApiClient sharedInstance] user] firstName]] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
         
-        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
-        
+        [self dismissViewControllerAnimated:YES completion:nil];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *JSON = [(AFJSONRequestOperation *) operation responseJSON];
         [[[UIAlertView alloc] initWithTitle:@"Login Failed" message:[JSON valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];

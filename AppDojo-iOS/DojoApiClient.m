@@ -8,7 +8,7 @@
 
 #import "DojoApiClient.h"
 
-#define DojoAPIBaseURLString @"http://localhost:3000/"
+#define DojoAPIBaseURLString @"http://appdojo-api.herokuapp.com"
 #define DojoAPIToken @"some_token"
 
 

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NSRails.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

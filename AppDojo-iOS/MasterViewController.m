@@ -9,10 +9,13 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "CreateMeetingViewController.h"
+#import "LoginViewController.h"
 
 #import "DojoApiClient.h"
 #import "User.h"
 #import "Meeting.h"
+
+#define ApiClient [DojoApiClient sharedInstance]
 
 
 @interface MasterViewController () {
@@ -30,6 +33,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    if (![ApiClient isAuthorized]) 
+        [self performSegueWithIdentifier:@"login" sender:nil];
+    
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showNewMeetingForm:)];
     UIImage *background = [UIImage imageNamed:@"bg.jpg"];
@@ -41,8 +48,13 @@
     [self.backgroundImageView setImage:background];
     
     [self.refreshControl addTarget:self action:@selector(refreshTableView:) forControlEvents:UIControlEventValueChanged];
-    
+        
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [self fetchMeetingList];
+
 }
 
 - (void)refreshTableView:(UIRefreshControl *)sender {
@@ -77,7 +89,7 @@
         }        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         id JSON = [(AFJSONRequestOperation *) operation responseJSON];
-        NSLog(@"JSON = %@", JSON);
+        NSLog(@"JSON = %@\n\nError: %@", JSON,error);
     }];
 }
 

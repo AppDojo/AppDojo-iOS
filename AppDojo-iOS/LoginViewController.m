@@ -37,12 +37,15 @@
     const float movementDuration = 0.3f;
     
     int movement = (up ? -movementDistance : movementDistance);
-    
-    [UIView beginAnimations:@"anim" context:nil];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-    [UIView commitAnimations];
+        
+    [UIView animateWithDuration:movementDuration animations:^{
+        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    }];
+//    [UIView beginAnimations:@"anim" context:nil];
+//    [UIView setAnimationBeginsFromCurrentState:YES];
+//    [UIView setAnimationDuration:movementDuration];
+//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+//    [UIView commitAnimations];
 }
 
 

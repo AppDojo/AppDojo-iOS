@@ -17,9 +17,9 @@
     self = [self init];
     
     if (self) {
-        self.email      = [dictionary valueForKey:@"email"];
-        self.firstName  = [dictionary valueForKey:@"first_name"];
-        self.lastName   = [dictionary valueForKey:@"last_name"];
+        self.email      = dictionary[@"email"];
+        self.firstName  = dictionary[@"first_name"];
+        self.lastName   = dictionary[@"last_name"];
     }
     
     return self;

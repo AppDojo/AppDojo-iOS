@@ -15,8 +15,8 @@
     self = [self init];
         
     if (self) {
-        self.name      = [dictionary valueForKey:@"name"];
-        self.startDate = [dictionary valueForKey:@"start_time"];
+        self.name      = dictionary[@"name"];
+        self.startDate = dictionary[@"start_time"];
     }
     
     return self;

@@ -13,10 +13,10 @@
 @synthesize authToken;
 
 -(id) initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:[dictionary objectForKey:@"user"]];
+    self = [super initWithDictionary:dictionary[@"user"]];
     
     if(self) {
-        self.authToken = [dictionary valueForKey:@"auth_token"];
+        self.authToken = dictionary[@"auth_token"];
     }
     
     return self;

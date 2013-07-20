@@ -147,7 +147,30 @@
 
 - (void)signUpWithName:(NSString *)name email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation
 {
+    NSArray *nameList = [name componentsSeparatedByString:@" "];
+    NSString *firstName = [nameList objectAtIndex:0];
+   
+    NSString *lastName = [[nameList objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, nameList.count - 1)]] componentsJoinedByString:@" "];
     
+    
+    NSDictionary *params = @{@"user": @{@"first_name":firstName, @"last_name":lastName, @"email":email, @"password":password, @"password_confirmation":passwordConfirmation}};
+    
+    [[DojoApiClient sharedInstance] postPath:@"api/v1/users.json" parameters:params success:^(AFHTTPRequestOperation *operation, id response) {
+        // TODO: Refactor with the login one as well
+        CurrentUser *user = [[CurrentUser alloc] initWithDictionary:response];
+        [[DojoApiClient sharedInstance] setUser:user];
+        [[DojoApiClient sharedInstance] setDefaultHeader:@"X-AUTH-TOKEN" value:[[[DojoApiClient sharedInstance] user] authToken]];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSDictionary *JSON = [(AFJSONRequestOperation *) operation responseJSON];
+        NSString *message = @"";
+        // TODO: Failure message could be better...
+        for (NSString *key in [JSON[@"errors"] allKeys]) {
+            NSString *firstMessage = [NSString stringWithFormat:@"%@ %@\n", [key capitalizedString], [JSON[@"errors"][key] firstObject]];
+            message = [message stringByAppendingString:firstMessage];
+        }
+        [[[UIAlertView alloc] initWithTitle:@"Registration Failed" message:message delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
+    }];
 }
 
 
